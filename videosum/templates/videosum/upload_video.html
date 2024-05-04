@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP4 and JSON File Reader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .file-upload {
+            margin-bottom: 20px;
+        }
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        .file-upload label {
+            display: block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .file-upload label:hover {
+            background-color: #0056b3;
+        }
+        .file-info {
+            margin-top: 20px;
+        }
+        .file-info p {
+            margin: 5px 0;
+            color: #333;
+        }
+        video {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .process-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .process-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MP4 and JSON File Reader</h1>
+        <form id="formData" method="POST" action="/videosum/data_analysis/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="file-upload">
+                <input type="file" id="mp4File" name="videoFile" accept="video/mp4">
+                <label for="mp4File">Choose MP4 File</label>
+            </div>
+            <div class="file-upload">
+                <input type="file" id="jsonFile" name="labelFile" accept=".json">
+                <label for="jsonFile">Choose JSON File</label>
+            </div>
+            <button class="process-btn" id="processBtn" type="submit">Process Data</button>
+        </form>
+        <div class="file-info">
+            <p id="mp4FileName">No MP4 file selected</p>
+            <p id="jsonFileName">No JSON file selected</p>
+        </div>
+        <video id="videoPlayer" controls>
+            Your browser does not support the video tag.
+        </video>
+
+
+        <!-- 隐藏的表单，用于提交文件数据 -->
+<!--        <form id="formData" method="POST" action="/videosum/data_analysis/" enctype="multipart/form-data">-->
+<!--            {% csrf_token %}-->
+<!--            <input type="file" id="mp4FileHidden" name="mp4File" accept="video/mp4">-->
+<!--            <input type="file" id="jsonFileHidden" name="jsonFile" accept=".json">-->
+<!--        </form>-->
+    </div>
+
+    <script>
+        document.getElementById('mp4File').addEventListener('change', function() {
+            const file = this.files[0];
+            document.getElementById('mp4FileName').textContent = file ? file.name : 'No MP4 file selected';
+            if (file) {
+                const videoPlayer = document.getElementById('videoPlayer');
+                videoPlayer.src = URL.createObjectURL(file);
+            }
+        });
+
+        document.getElementById('jsonFile').addEventListener('change', function() {
+            const file = this.files[0];
+            document.getElementById('jsonFileName').textContent = file ? file.name : 'No JSON file selected';
+        });
+
+        // document.getElementById('processBtn').addEventListener('click', function() {
+        //     // 触发文件提交
+        //     document.getElementById('formData').submit();
+        // });
+    </script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px 0;
+            background-color: #007bff; /* 浅蓝色背景 */
+            border-bottom: 4px solid #007bff; /* 蓝色底边框 */
+            margin: 10px;
+            border-radius: 10px; /* 圆角 */
+        }
+        .container {
+            display: flex;
+            padding: 20px;
+            justify-content: space-around;
+        }
+        .video-container, .info-container {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border: 4px solid #007bff; /* 蓝色边框 */
+        }
+        .info-container {
+            margin-left: 20px; /* 添加一些间距 */
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        video {
+            width: 100%;
+            border-radius: 5px;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .video-info, .key-frame-info {
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">Data Analysis</div>
+    <div class="container">
+        <div class="video-container">
+            <h2>Video Player</h2>
+            <video controls id="videoPlayer">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-info">
+                <p id="videoDuration">Duration: </p>
+                <p id="videoFrameCount">Frame Count: </p>
+            </div>
+        </div>
+        <div class="info-container">
+            <div class="key-frame">
+                <h2>Key Frame</h2>
+                <img id="keyFrameImage" src="#" alt="Key Frame">
+                <div class="key-frame-info">
+                    <p id="keyFrameIndex">Index in Video: </p>
+                </div>
+            </div>
+            <div class="metrics">
+                <h2>Metrics</h2>
+                <table>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>F-Score</td>
+                        <td id="fscoreValue"></td>
+                    </tr>
+                    <tr>
+                        <td>Precision</td>
+                        <td id="precisionValue"></td>
+                    </tr>
+                    <tr>
+                        <td>Recall</td>
+                        <td id="recallValue"></td>
+                    </tr>
+                    <tr>
+                        <td>Accuracy</td>
+                        <td id="accuracyValue"></td>
+                    </tr>
+                    <tr>
+                        <td>Overlapping Area</td>
+                        <td id="overlappingAreaValue"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // 假设这些数据是从后端传递过来的
+            var videoInfo = {
+                duration: "120 seconds",
+                frameCount: 500
+            };
+
+            var keyFrameInfo = {
+                imageUrl: "/path/to/key_frame_image.jpg",
+                frameIndex: 250
+            };
+
+            var metrics = {
+                FScore: 0.85,
+                Precision: 0.92,
+                Recall: 0.78,
+                Accuracy: 0.88,
+                OverlappingArea: 0.75
+            };
+
+            // 填充视频信息
+            document.getElementById("videoDuration").textContent = "Duration: " + videoInfo.duration;
+            document.getElementById("videoFrameCount").textContent = "Frame Count: " + videoInfo.frameCount;
+
+            // 填充关键帧信息
+            document.getElementById("keyFrameImage").src = keyFrameInfo.imageUrl;
+            document.getElementById("keyFrameIndex").textContent = "Index in Video: " + keyFrameInfo.frameIndex;
+
+            // 填充指标数据
+            document.getElementById("fscoreValue").textContent = metrics.FScore;
+            document.getElementById("precisionValue").textContent = metrics.Precision;
+            document.getElementById("recallValue").textContent = metrics.Recall;
+            document.getElementById("accuracyValue").textContent = metrics.Accuracy;
+            document.getElementById("overlappingAreaValue").textContent = metrics.OverlappingArea;
+
+            // // 获取上传的视频文件并设置到视频播放器中
+            // var videoFileInput = document.getElementById("mp4FileHidden");
+            // if (videoFileInput.files.length > 0) {
+            //     var videoPlayer = document.getElementById("videoPlayer");
+            //     var videoURL = URL.createObjectURL(videoFileInput.files[0]);
+            //     videoPlayer.src = videoURL;
+            // }
+        };
+    </script>
+</body>
+</html>
